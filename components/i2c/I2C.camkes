@@ -1,0 +1,170 @@
+/*
+* Copyright (C) 2020, Hensoldt Cyber GmbH
+*/
+
+#pragma once
+
+#include "if_I2C.camkes"
+
+//------------------------------------------------------------------------------
+
+#define iMX6_I2CX_HW_DATAPORT_SIZE          0x4000
+#define iMX6_I2C1_HW_DATAPORT_PADDR         0x021A0000 
+#define iMX6_I2C2_HW_DATAPORT_PADDR         0x021A4000 
+#define iMX6_I2C3_HW_DATAPORT_PADDR         0x021A8000 
+
+#define iMX6_IOMUXC_HW_DATAPORT_SIZE        0x4000
+#define iMX6_IOMUXC_HW_DATAPORT_PADDR       0x020E0000 
+
+#define iMX6_CCM_HW_DATAPORT_SIZE           0x4000
+#define iMX6_CCM_HW_DATAPORT_PADDR          0x020C4000 
+
+#define iMX6_CCM_ANALOG_HW_DATAPORT_SIZE    0x1000
+#define iMX6_CCM_ANALOG_HW_DATAPORT_PADDR   0x020C8000 
+
+//------------------------------------------------------------------------------
+
+/*
+* Declare the iMX6_I2C HW component:
+*
+*      iMX6_I2C_HW_COMPONENT_DEFINE(
+*          <name>
+*      )
+*/
+#define iMX6_I2C_HW_COMPONENT_DEFINE( \
+_name_) \
+\
+component _name_ { \
+    hardware; \
+    dataport  Buf(iMX6_I2CX_HW_DATAPORT_SIZE)               i2c1_regBase; \
+    dataport  Buf(iMX6_I2CX_HW_DATAPORT_SIZE)               i2c2_regBase; \
+    dataport  Buf(iMX6_I2CX_HW_DATAPORT_SIZE)               i2c3_regBase; \
+    dataport  Buf(iMX6_IOMUXC_HW_DATAPORT_SIZE)             iomuxc_regBase; \
+    dataport  Buf(iMX6_CCM_HW_DATAPORT_SIZE)                ccm_regBase; \
+    dataport  Buf(iMX6_CCM_ANALOG_HW_DATAPORT_SIZE)         ccm_analog_regBase; \
+}
+
+/*
+* Declare the iMX6_I2C driver component:
+*
+*      iMX6_I2C_COMPONENT_DEFINE(
+*          <name>
+*      )
+*/
+#define iMX6_I2C_COMPONENT_DEFINE( \
+_name_) \
+\
+component _name_ { \
+    dataport  Buf(iMX6_I2CX_HW_DATAPORT_SIZE)           i2c1_regBase; \
+    dataport  Buf(iMX6_I2CX_HW_DATAPORT_SIZE)           i2c2_regBase; \
+    dataport  Buf(iMX6_I2CX_HW_DATAPORT_SIZE)           i2c3_regBase; \
+    dataport  Buf(iMX6_IOMUXC_HW_DATAPORT_SIZE)         iomuxc_regBase; \
+    dataport  Buf(iMX6_CCM_HW_DATAPORT_SIZE)            ccm_regBase; \
+    dataport  Buf(iMX6_CCM_ANALOG_HW_DATAPORT_SIZE)     ccm_analog_regBase; \
+    \
+    provides  if_I2C                     i2c_rpc; \
+    dataport  Buf                        i2c_port; \
+}
+
+
+/*
+* Connect a iMX6_I2C driver instance to the HW instance.
+*
+*      iMX6_I2C_INSTANCE_CONNECT(
+*          <nic>,
+*          <hw>,
+*      )
+*/
+#define iMX6_I2C_INSTANCE_CONNECT( \
+_inst_, \
+_inst_hw_) \
+\
+connection seL4HardwareMMIO \
+    _inst_ ## _1_ ## _mmio( \
+        from _inst_.i2c1_regBase, \
+        to   _inst_hw_.i2c1_regBase \
+    ); \
+\
+connection seL4HardwareMMIO \
+    _inst_ ## _2_ ## _mmio( \
+        from _inst_.i2c2_regBase, \
+        to   _inst_hw_.i2c2_regBase \
+    ); \
+\
+connection seL4HardwareMMIO \
+    _inst_ ## _3_ ## _mmio( \
+        from _inst_.i2c3_regBase, \
+        to   _inst_hw_.i2c3_regBase \
+    );  \
+\
+connection seL4HardwareMMIO \
+    _inst_ ## _4_ ## _mmio( \
+        from _inst_.iomuxc_regBase, \
+        to   _inst_hw_.iomuxc_regBase \
+    ); \
+\
+connection seL4HardwareMMIO \
+    _inst_ ## _5_ ## _mmio( \
+        from _inst_.ccm_regBase, \
+        to   _inst_hw_.ccm_regBase \
+    ); \
+\
+connection seL4HardwareMMIO \
+    _inst_ ## _6_ ## _mmio( \
+        from _inst_.ccm_analog_regBase, \
+        to   _inst_hw_.ccm_analog_regBase \
+    );
+
+//------------------------------------------------------------------------------
+
+
+/*
+* Assign client interface:
+*
+*      iMX6_I2C_INSTANCE_CONNECT_CLIENT(
+*          <instance>,
+*          <storage>.<rpc>, <storage>.<port>
+*      )
+*/
+#define iMX6_I2C_INSTANCE_CONNECT_CLIENT( \
+_inst_, \
+_peer_inst_rpc_, \
+_peer_inst_port_) \
+\
+connection  seL4RPCCall \
+    _inst_ ## _i2c_rpc( \
+        from  _peer_inst_rpc_, \
+        to    _inst_.i2c_rpc \
+    ); \
+\
+connection  seL4SharedData \
+    _inst_ ## _i2c_port( \
+        from  _peer_inst_port_, \
+        to    _inst_.i2c_port \
+    );
+
+//------------------------------------------------------------------------------
+
+
+/*
+* Let iMX6 configure itself:
+*
+*      iMX6_I2C_HW_INSTANCE_CONFIGURE_SELF(
+*          <instance>
+*      )
+ */
+#define iMX6_I2C_HW_INSTANCE_CONFIGURE_SELF( \
+    _inst_) \
+    \
+    _inst_.i2c1_regBase_paddr       = iMX6_I2C1_HW_DATAPORT_PADDR; \
+    _inst_.i2c1_regBase_size        = iMX6_I2CX_HW_DATAPORT_SIZE; \
+    _inst_.i2c2_regBase_paddr       = iMX6_I2C2_HW_DATAPORT_PADDR; \
+    _inst_.i2c2_regBase_size        = iMX6_I2CX_HW_DATAPORT_SIZE; \
+    _inst_.i2c3_regBase_paddr       = iMX6_I2C3_HW_DATAPORT_PADDR; \
+    _inst_.i2c3_regBase_size        = iMX6_I2CX_HW_DATAPORT_SIZE; \
+    _inst_.iomuxc_regBase_paddr     = iMX6_IOMUXC_HW_DATAPORT_PADDR; \
+    _inst_.iomuxc_regBase_size      = iMX6_IOMUXC_HW_DATAPORT_SIZE; \
+    _inst_.ccm_regBase_paddr        = iMX6_CCM_HW_DATAPORT_PADDR; \
+    _inst_.ccm_regBase_size         = iMX6_CCM_HW_DATAPORT_SIZE; \
+    _inst_.ccm_analog_regBase_paddr = iMX6_CCM_ANALOG_HW_DATAPORT_PADDR; \
+    _inst_.ccm_analog_regBase_size  = iMX6_CCM_ANALOG_HW_DATAPORT_SIZE; 
