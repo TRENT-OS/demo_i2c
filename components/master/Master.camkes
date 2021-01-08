@@ -1,0 +1,11 @@
+import <if_OS_Timer.camkes>;
+
+#define I2C_Master_COMPONENT_DEFINE(_type_) \
+    component _type_ { \
+        control; \
+        uses if_I2C i2c_rpc; \
+        dataport  Buf                        i2c_port; \
+        \
+        uses      if_OS_Timer                timeServer_rpc; \
+        consumes  TimerReady                 timeServer_notify; \
+    }
