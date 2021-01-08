@@ -1,0 +1,48 @@
+#pragma once
+
+import <std_connector.camkes>;
+
+// #include "components/i2c/if_I2C.camkes"
+
+#include "system_config.h"
+
+#include "components/i2c/I2C.camkes"
+iMX6_I2C_HW_COMPONENT_DEFINE(I2C_HW)
+iMX6_I2C_COMPONENT_DEFINE(I2C)
+
+#include "TimeServer/camkes/TimeServer.camkes"
+TimeServer_COMPONENT_DEFINE(TimeServer)
+
+#include "components/master/Master.camkes"
+I2C_Master_COMPONENT_DEFINE(Master) 
+ 
+assembly{
+    composition{
+        component Master master;
+        component I2C_HW i2c_hw;
+        component I2C i2c;
+
+        iMX6_I2C_INSTANCE_CONNECT(i2c,i2c_hw)
+
+        iMX6_I2C_INSTANCE_CONNECT_CLIENT(i2c,master.i2c_rpc,master.i2c_port)
+
+        //----------------------------------------------------------------------
+        // TimeServer
+        //----------------------------------------------------------------------
+        component TimeServer timeServer;
+
+        TimeServer_INSTANCE_CONNECT_CLIENTS(
+            timeServer,
+            master.timeServer_rpc, master.timeServer_notify
+        )
+
+    }
+
+    configuration{
+        iMX6_I2C_HW_INSTANCE_CONFIGURE_SELF(i2c_hw)
+
+        TimeServer_CLIENT_ASSIGN_BADGES(
+            master.timeServer_rpc
+        )
+    }
+}
