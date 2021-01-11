@@ -33,6 +33,7 @@ function(iMX6_I2C_DeclareCAmkESComponent name)
         ${name}
         SOURCES
             ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/I2C.c
+            ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/imx6_i2c.c
         C_FLAGS
             -Wall
             -Werror

@@ -1,5 +1,5 @@
 #
-# LED Demo
+# I2C Demo
 #
 # Copyright (C) 2019-2020, Hensoldt Cyber GmbH
 #
@@ -27,6 +27,7 @@ DeclareCAmkESComponent(
     I2C
     SOURCES
         components/i2c/I2C.c
+        components/i2c/imx6_i2c.c
     C_FLAGS
         -Wall
         -Werror

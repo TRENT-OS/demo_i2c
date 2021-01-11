@@ -8,8 +8,8 @@
 #include "LibDebug/Debug.h"
 #include "OS_Dataport.h"
 
-#include <platsupport/i2c.h>
-#include <platsupport/plat/i2c.h>
+#include "include/arm_i2c.h" // instead of #include <platsupport/i2c.h>
+#include "include/imx6_i2c.h" // instead of #include <platsupport/plat/i2c.h>
 #include <platsupport/clock.h>
 #include <platsupport/plat/clock.h>
 #include <platsupport/mux.h>
