@@ -1,3 +1,10 @@
+/**
+ * Master component writes to the port expander and drives the LED running 
+ * light demo. 
+ *
+ * Copyright (C) 2021, Hensoldt Cyber GmbH
+ */
+
 #include "OS_Error.h"
 #include "LibDebug/Debug.h"
 #include "OS_Dataport.h"
@@ -17,7 +24,8 @@ static const if_OS_Timer_t timer =
         timeServer_rpc,
         timeServer_notify);
 
-int run(void) {
+OS_Error_t master_main(void)
+{
     OS_Error_t err;
 
     if ((err = i2c_rpc_init_slave(DEVICE)) != OS_SUCCESS)
@@ -48,7 +56,7 @@ int run(void) {
     
     while (true)
     {
-        int j = 1;
+        unsigned int j = 1;
         for (size_t i = 0; i < 8; i++)
         {
             buffer[0] = j;
@@ -56,7 +64,6 @@ int run(void) {
             {
                 Debug_LOG_ERROR("write_data() to register 0x%x of device@0x%x failed with %d", 
                                 DEVICE, GPIOA, err);
-                // return OS_ERROR_GENERIC;
             }
             j *= 2;
             if ((err = TimeServer_sleep(&timer, TimeServer_PRECISION_MSEC,100)) != OS_SUCCESS)
@@ -68,4 +75,14 @@ int run(void) {
     }
     
     return OS_SUCCESS;
+}
+
+int run(void) {
+    OS_Error_t ret = master_main();
+    if(OS_SUCCESS != ret)
+    {
+        Debug_LOG_ERROR("master_main failed, code %d",ret);
+        return -1;
+    }
+    return 0;
 }

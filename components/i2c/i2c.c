@@ -1,4 +1,4 @@
-/*
+/**
  * Sabre Lite (i.MX6) I2C driver
  *
  * Copyright (C) 2021, HENSOLDT Cyber GmbH
@@ -8,8 +8,19 @@
 #include "LibDebug/Debug.h"
 #include "OS_Dataport.h"
 
+//------------------------------------------------------------------------------
+/* The I2C running light demo made it necessary to change the address handling
+*  in the i2c.c file. As we do not want to modify the libplatsupport files, the
+*  following two files were extracted from libplatsupport and modified 
+*  accordingly. 
+*  Future projects might want to reference the actual I2C driver files in 
+*  libplatsupport. The corresponding files in libplatsupport can be included 
+*  with the include commands in the comments below. 
+*/
 #include "include/arm_i2c.h" // instead of #include <platsupport/i2c.h>
 #include "include/imx6_i2c.h" // instead of #include <platsupport/plat/i2c.h>
+//------------------------------------------------------------------------------
+
 #include <platsupport/clock.h>
 #include <platsupport/plat/clock.h>
 #include <platsupport/mux.h>

@@ -1,7 +1,7 @@
 #
 # iMX6 I2C driver
 #
-# Copyright (C) 2020, Hensoldt Cyber GmbH
+# Copyright (C) 2021, Hensoldt Cyber GmbH
 #
 
 cmake_minimum_required(VERSION 3.17)
@@ -16,7 +16,7 @@ cmake_minimum_required(VERSION 3.17)
 #     required, component instance name
 #
 #   LIBS <lib_1> <lib_2> ...
-#     additional libraries. At least a TimeServer client library is required
+#     additional libraries. 
 #
 function(iMX6_I2C_DeclareCAmkESComponent name)
 
@@ -32,7 +32,7 @@ function(iMX6_I2C_DeclareCAmkESComponent name)
     DeclareCAmkESComponent(
         ${name}
         SOURCES
-            ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/I2C.c
+            ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/i2c.c
             ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/imx6_i2c.c
         C_FLAGS
             -Wall

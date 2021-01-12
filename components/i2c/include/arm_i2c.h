@@ -12,7 +12,7 @@
 
 #pragma once
 
-// Extracted from ./seos_sandbox/sdk-sel4-camkes/libs/sel4_util_libs/libplatsupport/arch_include/arm/platsupport/i2c.h
+// Extracted from: sdk/sdk-sel4-camkes/libs/sel4_util_libs/libplatsupport/arch_include/arm/platsupport/i2c.h
 
 #include <stdint.h>
 

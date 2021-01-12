@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020, Hensoldt Cyber GmbH
+ * Copyright (C) 2021, Hensoldt Cyber GmbH
  *
  * System libraries configurations
  *

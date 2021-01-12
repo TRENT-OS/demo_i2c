@@ -10,7 +10,7 @@
  * @TAG(DATA61_BSD)
  */
 
-// Extracted from ./seos_sandbox/sdk-sel4-camkes/libs/sel4_util_libs/libplatsupport/src/plat/imx6/i2c.c
+// Extracted from: sdk/sdk-sel4-camkes/libs/sel4_util_libs/libplatsupport/src/plat/imx6/i2c.c
 
 #include "include/arm_i2c.h"
 #include <platsupport/mux.h>
@@ -334,7 +334,7 @@ master_txstart(struct i2c_bus_priv* dev, int slave)
 {
     slave = (0x40 | slave);
     master_start(dev, slave);
-    // master_start(dev, I2CDATA_WRITE(slave));
+    // original: master_start(dev, I2CDATA_WRITE(slave));
 }
 
 static inline void
@@ -342,7 +342,7 @@ master_rxstart(struct i2c_bus_priv* dev, int slave)
 {
     slave = (0x41 | slave);
     master_start(dev, slave);
-    // master_start(dev, I2CDATA_READ(slave));
+    // original: master_start(dev, I2CDATA_READ(slave));
 }
 
 static int

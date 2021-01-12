@@ -1,7 +1,7 @@
 #
 # I2C Demo
 #
-# Copyright (C) 2019-2020, Hensoldt Cyber GmbH
+# Copyright (C) 2020-2021, Hensoldt Cyber GmbH
 #
 cmake_minimum_required(VERSION 3.7.2)
 
@@ -23,22 +23,10 @@ DeclareCAmkESComponent(
         TimeServer_client
 )
 
-DeclareCAmkESComponent(
+include(${CMAKE_CURRENT_SOURCE_DIR}/components/i2c/CMakeLists.txt)
+iMX6_I2C_DeclareCAmkESComponent(
     I2C
-    SOURCES
-        components/i2c/I2C.c
-        components/i2c/imx6_i2c.c
-    C_FLAGS
-        -Wall
-        -Werror
-    LIBS
-        os_core_api
-        os_libs
 )
-
-#iMX6_I2C_DeclareCAmkESComponent(
-#    I2C
-#)
 
 TimeServer_DeclareCAmkESComponent(
     TimeServer

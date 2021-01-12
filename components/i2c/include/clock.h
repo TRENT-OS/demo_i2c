@@ -12,7 +12,7 @@
 
 #pragma once
 
-// Extracted from ./seos_sandbox/sdk-sel4-camkes/libs/sel4_util_libs/libplatsupport/src/arch/arm/clock.h
+// Extracted from: sdk/sdk-sel4-camkes/libs/sel4_util_libs/libplatsupport/src/arch/arm/clock.h
 
 #include <assert.h>
 #include <platsupport/clock.h>
