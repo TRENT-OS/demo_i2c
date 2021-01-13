@@ -6,28 +6,19 @@
 
 cmake_minimum_required(VERSION 3.17)
 
-
 #-------------------------------------------------------------------------------
-# Declare iMX6 I2C Driver CAmkES Component
+#
+# Declare I2C driver CAmkES Component
 #
 # Parameters:
 #
 #   <name>
-#     required, component instance name
-#
-#   LIBS <lib_1> <lib_2> ...
-#     additional libraries. 
-#
-function(iMX6_I2C_DeclareCAmkESComponent name)
+#       component name
+#   <id>
+#       ID used in platsupport libs
 
-    cmake_parse_arguments(
-        PARSE_ARGV
-        1
-        iMX6_I2C
-        ""
-        ""
-        "LIBS"
-    )
+#
+function(I2C_DeclareCAmkESComponent name id)
 
     DeclareCAmkESComponent(
         ${name}
@@ -41,10 +32,30 @@ function(iMX6_I2C_DeclareCAmkESComponent name)
         C_FLAGS
             -Wall
             -Werror
+            -DI2C_CONFIG_ID=${id}
         LIBS
             os_core_api
             lib_debug
-            ${iMX6_I2C_LIBS}
+            platsupport
     )
+
+endfunction()
+
+#-------------------------------------------------------------------------------
+# declare CAmkES components for all I2Cs of a platform
+function(DeclareCAmkESComponents_for_I2Cs)
+
+    set(dir_plat "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/plat/${PLATFORM}")
+
+    # For now we assume that all platforms have I2C controllers, so there is always a
+    # platform specific folder with CMake files. If it is missing, the build
+    # will fail. In case there is ever a platform that has no I2C controllers, there
+    # should be an empty platform file that states this fact in a comment.
+    if(NOT IS_DIRECTORY "${dir_plat}")
+        message(FATAL_ERROR "unsupported platform: '${PLATFORM}'")
+    endif()
+
+    CAmkESAddCPPInclude("${dir_plat}")
+    include("${dir_plat}/plat_i2c.cmake")
 
 endfunction()

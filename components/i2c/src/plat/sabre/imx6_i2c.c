@@ -19,6 +19,11 @@
 
 #define IMX6_I2C_DEFAULT_FREQ (400 * KHZ)
 
+/*
+ * As the following peripherals are also defined in the corresponding
+ * libplatsupport file, we leave these entries for now. The peripherals are used
+ * in MAP_IF_NULL().
+ */
 #define IMX6_I2C1_PADDR 0x021A0000
 #define IMX6_I2C2_PADDR 0x021A4000
 #define IMX6_I2C3_PADDR 0x021A8000

@@ -35,19 +35,15 @@
 #include <camkes.h>
 #include <camkes/io.h>
 
-#define IMX6_IOMUXC_PADDR       iomuxc_regBase
-#define IMX6_CCM_PADDR          ccm_regBase
-#define IMX6_CCM_ANALOG_PADDR   ccm_analog_regBase
+// I2C ID used by lib-platsupport must be set
+#if !defined(I2C_CONFIG_ID)
+#error "I2C_CONFIG_ID missing"
+#endif
 
-#define CCM_PADDR               ccm_regBase
-#define CCM_ANALOG_PADDR        ccm_analog_regBase
-
-typedef enum i2c_id i2c_id_t;
 typedef struct i2c_config {
-    i2c_id_t id;
+    enum i2c_id id;
     enum i2c_slave_speed slave_speed;
-    enum i2c_slave_address_size addr_size; 
-    int addr;
+    enum i2c_slave_address_size addr_size;
 } i2c_config_t;
 
 bool                    init_ok = false;
@@ -55,21 +51,16 @@ OS_Dataport_t           port_storage = OS_DATAPORT_ASSIGN(i2c_port);
 static i2c_bus_t        i2c_bus;
 static ps_io_ops_t      io_ops;
 i2c_slave_t             slave;
-i2c_config_t            config =
-{
-    .id = I2C3,
-    .slave_speed = I2C_SLAVE_SPEED_STANDARD,
-    .addr_size = I2C_SLAVE_ADDR_7BIT
-};
+i2c_config_t            config;
 
 //------------------------------------------------------------------------------
 void post_init(void)
 {
     Debug_LOG_DEBUG("[%s] %s", get_instance_name(), __func__);
 
-    if(config.id == I2C1) config.addr = (int) i2c1_regBase;
-    if(config.id == I2C2) config.addr = (int) i2c2_regBase;
-    if(config.id == I2C3) config.addr = (int) i2c3_regBase;
+    config.id = I2C_CONFIG_ID;
+    config.slave_speed = I2C_SLAVE_SPEED_STANDARD;
+    config.addr_size = I2C_SLAVE_ADDR_7BIT;
 
     int error = camkes_io_ops(&io_ops);
     if (error)

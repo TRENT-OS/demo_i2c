@@ -9,10 +9,9 @@
 import <std_connector.camkes>;
 
 #include "system_config.h"
+#include "plat_system_config.h"
 
 #include "components/i2c/i2c.camkes"
-iMX6_I2C_HW_COMPONENT_DEFINE(I2C_HW)
-iMX6_I2C_COMPONENT_DEFINE(I2C)
 
 #include "TimeServer/camkes/TimeServer.camkes"
 TimeServer_COMPONENT_DEFINE(TimeServer)
@@ -30,12 +29,12 @@ assembly{
         //----------------------------------------------------------------------
         // I2C
         //----------------------------------------------------------------------
-        component I2C_HW i2c_hw;
-        component I2C i2c;
+        component I2C_IO i2cDrv;
 
-        iMX6_I2C_INSTANCE_CONNECT(i2c,i2c_hw)
-
-        iMX6_I2C_INSTANCE_CONNECT_CLIENT(i2c,master.i2c_rpc,master.i2c_port)
+        I2C_INSTANCE_CONNECT_CLIENT(
+            i2cDrv,
+            master.i2c_rpc,
+            master.i2c_port)
 
         //----------------------------------------------------------------------
         // TimeServer
@@ -50,11 +49,6 @@ assembly{
     }
 
     configuration{
-        //----------------------------------------------------------------------
-        // I2C configuration
-        //----------------------------------------------------------------------
-        iMX6_I2C_HW_INSTANCE_CONFIGURE_SELF(i2c_hw)
-
         TimeServer_CLIENT_ASSIGN_BADGES(
             master.timeServer_rpc
         )
