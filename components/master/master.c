@@ -1,5 +1,5 @@
 /**
- * Master component writes to the port expander and drives the LED running 
+ * Master component writes to the port expander and drives the LED chaser
  * light demo. 
  *
  * Copyright (C) 2021, Hensoldt Cyber GmbH
@@ -40,20 +40,26 @@ OS_Error_t master_main(void)
     buffer[0] = 0x00;
     size_t bytesWritten = 0;
 
+    // sets all bits of IODIRA-Register to 0 -> all 8 GPIO ports are defined as outputs
     if ((err = i2c_rpc_write_data(DEVICE,IODIRA,1,&bytesWritten)) != OS_SUCCESS)
     {
         Debug_LOG_ERROR("write_data() to device 0x%x at register 0x%x failed with %d", 
                         DEVICE, IODIRA, err);
         return OS_ERROR_GENERIC;
     }
+   
     buffer[0] = 0x00;
+    // sets all bits of GPIOA-Register to 0 
+    // => all 8 GPIO ports are set to 0
+    // => all 8 connected LEDs are turned off
     if ((err = i2c_rpc_write_data(DEVICE,GPIOA,1,&bytesWritten)) != OS_SUCCESS)
     {
         Debug_LOG_ERROR("write_data() to device 0x%x at register 0x%x failed with %d", 
                         DEVICE, GPIOA, err);
         return OS_ERROR_GENERIC;
     }
-    
+
+    // every loop iteration/every 100 ms, we switch to another LED => chaser light
     while (true)
     {
         unsigned int j = 1;

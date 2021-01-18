@@ -1,8 +1,5 @@
-/* Copyright (C) 2021, HENSOLDT Cyber GmbH */
-
-/**
- * @file
- * @brief   Generic interface for accessing an I2C interface.
+/*
+ * Copyright (C) 2021, Hensoldt Cyber GmbH
  */
 
 procedure if_I2C {
