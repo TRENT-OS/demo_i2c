@@ -19,7 +19,7 @@ DeclareCAmkESComponent(
         components/master/master.c
     LIBS
         os_core_api
-        os_libs
+        lib_debug
         TimeServer_client
 )
 

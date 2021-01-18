@@ -39,7 +39,7 @@ function(iMX6_I2C_DeclareCAmkESComponent name)
             -Werror
         LIBS
             os_core_api
-            os_libs
+            lib_debug
             ${iMX6_I2C_LIBS}
     )
 
