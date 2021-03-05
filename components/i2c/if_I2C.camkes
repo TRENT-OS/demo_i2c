@@ -8,31 +8,31 @@ procedure if_I2C {
 
     /**
     * @brief Initialize I2C interface to specific slave device.
-    * 
-    * @details CAmkES RPC interface handler. The main program (with the run 
+    *
+    * @details CAmkES RPC interface handler. The main program (with the run
     *          function) can call this function.
-    * 
-    * @param dev        device address 
-    
+    *
+    * @param dev        device address
+
     * @return Implementation specific.
-    */ 
+    */
     OS_Error_t init_slave(
         in size_t dev
     );
-    
+
     /**
     * @brief Writes len bytes to I2C interface.
-    * 
-    * @details CAmkES RPC interface handler. The main program (with the run 
+    *
+    * @details CAmkES RPC interface handler. The main program (with the run
     *          function) can call this function.
-    * 
-    * @param dev        device address 
+    *
+    * @param dev        device address
     * @param reg        register address on I2C device
     * @param size       number of bytes to write to the I2C device
     * @param written    actual number of bytes that were written to I2C device
-    * 
+    *
     * @return Implementation specific.
-    */ 
+    */
     OS_Error_t write_data(
         in size_t dev,
         in size_t reg,
@@ -42,17 +42,17 @@ procedure if_I2C {
 
     /**
     * @brief Reads len bytes from I2C interface.
-    * 
-    * @details CAmkES RPC interface handler. The main program (with the run 
+    *
+    * @details CAmkES RPC interface handler. The main program (with the run
     *          function) can call this function.
-    * 
-    * @param dev        device address 
+    *
+    * @param dev        device address
     * @param reg        register address on I2C device
     * @param size       number of bytes to read from the I2C device
     * @param read       actual number of bytes that were read from the I2C device
-    * 
+    *
     * @return Implementation specific.
-    */ 
+    */
     OS_Error_t read_data(
         in size_t device,
         in size_t reg,

@@ -1,9 +1,9 @@
-/**
+/*
  * Copyright (C) 2021, HENSOLDT Cyber GmbH
  *
  * System libraries configurations
- *
  */
+
 #pragma once
 
 

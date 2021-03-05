@@ -3,7 +3,7 @@
  * Copyright (C) 2021, HENSOLDT Cyber GmbH
  *
  * SPDX-License-Identifier: BSD-2-Clause
- */ 
+ */
 
 // Extracted from: sdk/sdk-sel4-camkes/libs/sel4_util_libs/libplatsupport/src/plat/imx6/i2c.c
 

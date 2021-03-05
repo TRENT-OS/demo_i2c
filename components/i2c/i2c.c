@@ -1,4 +1,4 @@
-/**
+/*
  * Sabre Lite (i.MX6) I2C driver
  *
  * Copyright (C) 2021, HENSOLDT Cyber GmbH
@@ -11,11 +11,11 @@
 //------------------------------------------------------------------------------
 /* The I2C chaser light demo made it necessary to change the address handling
  * in the i2c.c file. As we do not want to modify the libplatsupport files, the
- * following two files were extracted from libplatsupport and modified 
- * accordingly. 
- * Future projects might want to reference the actual I2C driver files in 
- * libplatsupport. The corresponding files in libplatsupport can be included 
- * with the include commands in the comments below. 
+ * following two files were extracted from libplatsupport and modified
+ * accordingly.
+ * Future projects might want to reference the actual I2C driver files in
+ * libplatsupport. The corresponding files in libplatsupport can be included
+ * with the include commands in the comments below.
  */
 #include "include/arm_i2c.h"    // instead of #include <platsupport/i2c.h>
 #include "include/imx6_i2c.h"   // instead of #include <platsupport/plat/i2c.h>
@@ -95,14 +95,14 @@ void post_init(void)
     error = i2c_init(config.id,&io_ops,&i2c_bus);
     if(error){
         Debug_LOG_ERROR("i2c_init() failed: rslt = %i", error);
-        return; 
+        return;
     }
     init_ok = true;
 
     Debug_LOG_INFO("%s done",__func__);
 }
 
-OS_Error_t 
+OS_Error_t
 __attribute__((__nonnull__))
 i2c_rpc_init_slave(
     size_t dev )
@@ -116,7 +116,7 @@ i2c_rpc_init_slave(
                               &slave);
     if(ret){
         Debug_LOG_ERROR("i2c slave_init failed, return code: %d",ret);
-        return OS_ERROR_GENERIC; 
+        return OS_ERROR_GENERIC;
     }
     Debug_LOG_DEBUG("Slave initialization done.");
     return OS_SUCCESS;
@@ -177,7 +177,7 @@ i2c_rpc_write_data(
                             NULL);
     if(ret != 2){
         Debug_LOG_ERROR("Writing to i2c slave device failed.");
-        return OS_ERROR_GENERIC; 
+        return OS_ERROR_GENERIC;
     }
 
     *written = size;
@@ -198,7 +198,7 @@ i2c_rpc_read_data(
     Debug_LOG_DEBUG(
         "I2C read: size %zu (0x%zx)",
         size, size);
-    
+
     if (!init_ok)
     {
         Debug_LOG_ERROR("initialization failed, fail call %s()", __func__);
@@ -229,7 +229,7 @@ i2c_rpc_read_data(
                                 NULL);
     if(ret != size){
         Debug_LOG_ERROR("Reading from i2c slave device failed.");
-        return OS_ERROR_GENERIC; 
+        return OS_ERROR_GENERIC;
     }
     *read = size;
 

@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2021, HENSOLDT Cyber GmbH
 #
+
 cmake_minimum_required(VERSION 3.7.2)
 
 os_set_config_file(
@@ -15,7 +16,7 @@ set(LibUtilsDefaultZfLogLevel 5 CACHE STRING "" FORCE)
 
 DeclareCAmkESComponent(
     Master
-    SOURCES 
+    SOURCES
         components/master/master.c
     LIBS
         os_core_api

@@ -1,4 +1,4 @@
-/**
+/*
  * Main CAmkES configuration file of the I2C demo application.
  *
  * Copyright (C) 2021, HENSOLDT Cyber GmbH
@@ -18,15 +18,15 @@ iMX6_I2C_COMPONENT_DEFINE(I2C)
 TimeServer_COMPONENT_DEFINE(TimeServer)
 
 #include "components/master/master.camkes"
-I2C_Master_COMPONENT_DEFINE(Master) 
- 
+I2C_Master_COMPONENT_DEFINE(Master)
+
 assembly{
     composition{
         //----------------------------------------------------------------------
-        // Master 
+        // Master
         //----------------------------------------------------------------------
         component Master master;
-        
+
         //----------------------------------------------------------------------
         // I2C
         //----------------------------------------------------------------------
