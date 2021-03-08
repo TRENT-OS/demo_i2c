@@ -1,7 +1,7 @@
 /**
  * CAmkES configuration file for the Master component of the I2c demo.
  *
- * Copyright (C) 2021, Hensoldt Cyber GmbH
+ * Copyright (C) 2021, HENSOLDT Cyber GmbH
  */
 
 import <if_OS_Timer.camkes>;

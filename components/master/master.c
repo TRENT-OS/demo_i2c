@@ -2,7 +2,7 @@
  * Master component writes to the port expander and drives the LED chaser
  * light demo. 
  *
- * Copyright (C) 2021, Hensoldt Cyber GmbH
+ * Copyright (C) 2021, HENSOLDT Cyber GmbH
  */
 
 #include "OS_Error.h"

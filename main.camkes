@@ -1,7 +1,7 @@
 /**
  * Main CAmkES configuration file of the I2C demo application.
  *
- * Copyright (C) 2021, Hensoldt Cyber GmbH
+ * Copyright (C) 2021, HENSOLDT Cyber GmbH
  */
 
 #pragma once
