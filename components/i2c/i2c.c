@@ -17,8 +17,8 @@
  * libplatsupport. The corresponding files in libplatsupport can be included
  * with the include commands in the comments below.
  */
-#include "include/arm_i2c.h"    // instead of #include <platsupport/i2c.h>
-#include "include/imx6_i2c.h"   // instead of #include <platsupport/plat/i2c.h>
+#include "i2c.h"    // instead of #include <platsupport/i2c.h>
+#include "imx6_i2c.h"   // instead of #include <platsupport/plat/i2c.h>
 //------------------------------------------------------------------------------
 
 #include <platsupport/clock.h>

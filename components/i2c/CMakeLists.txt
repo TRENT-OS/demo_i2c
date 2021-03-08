@@ -31,9 +31,13 @@ function(iMX6_I2C_DeclareCAmkESComponent name)
 
     DeclareCAmkESComponent(
         ${name}
+        INCLUDES
+            ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/include
+            ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/include/arch/arm
+            ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/include/plat/${PLATFORM}
         SOURCES
             ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/i2c.c
-            ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/imx6_i2c.c
+            ${CMAKE_CURRENT_FUNCTION_LIST_DIR}/src/plat/${PLATFORM}/imx6_i2c.c
         C_FLAGS
             -Wall
             -Werror

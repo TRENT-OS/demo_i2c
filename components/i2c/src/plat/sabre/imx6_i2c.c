@@ -7,13 +7,13 @@
 
 // Extracted from: sdk/sdk-sel4-camkes/libs/sel4_util_libs/libplatsupport/src/plat/imx6/i2c.c
 
-#include "include/arm_i2c.h"
+#include "i2c.h"
 #include <platsupport/mux.h>
 #include <platsupport/plat/mux.h>
 #include <platsupport/clock.h>
 #include <utils/util.h>
-#include "include/services.h"
-#include "include/clock.h"
+#include "services.h"
+#include "clock.h"
 
 #include <string.h>
 
